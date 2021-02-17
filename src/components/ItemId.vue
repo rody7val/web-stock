@@ -1,0 +1,61 @@
+<template>
+  <div v-if="$store.state.error">{{$store.state.error}}</div>
+  <div v-else>
+    <div v-if="$store.state.loading">Cargando...</div>
+    <div v-else class="item">
+      <h1>{{$store.state.item.name}}</h1>
+      <h2>${{$store.state.item.price}}</h2>
+      <code>{{$store.state.item.qty}} en stock</code>
+      <p>{{$store.state.item.desc || "Sin descripción"}}</p>
+    </div>
+  </div>
+</template>
+
+<script>
+import { onMounted } from 'vue'
+import { useStore } from 'vuex'
+import { useRoute } from 'vue-router'
+
+export default {
+  setup() {
+    const store = useStore()
+    const route = useRoute()
+    async function getItem() {
+      try {
+        await store.dispatch('fetchItem', {
+          id: route.params.id,
+          cb: (err) => {
+            if(err) store.commit('SET_ERROR', err)
+          }
+        })
+      } catch(err) { store.commit('SET_ERROR', err) }
+    }
+
+    onMounted(() => {
+      store.commit('SET_ERROR', "")
+      getItem()
+    })
+  }
+}
+</script>
+
+<!-- Add "scoped" attribute to limit CSS to this component only -->
+<style scoped>
+.item{
+  text-align: left;
+  padding-left: 30px
+}
+h1{
+  color: #42b983;
+  font-size: 28px;
+  margin-bottom: 10px
+}
+h2, code{
+  font-family: monospace;
+  font-size: 38px;
+  margin: 0;
+}
+code{
+  font-size: 18px;
+}
+</style>
