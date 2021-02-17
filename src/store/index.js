@@ -40,6 +40,20 @@ export default createStore({
         .catch(err => { return cb(new Error("Error de conexión")) })
     },
 
+    fetchItem(context, { id, cb }) {
+      context.commit('SET_LOADING', true)
+      axios.get('http://localhost:3000/api/items/'+ id)
+        .then(response => {
+          //console.log(response.data)
+          if (response.data.success) {
+            context.commit('SET_ITEM', response.data.item)
+            cb(null)
+          }
+          context.commit('SET_LOADING', false)
+        })
+        .catch(err => { return cb(new Error("Error de conexión")) })
+    },
+
     addItem(context, { item, cb }) {
       context.commit('SET_LOADING', true)
       axios.post('http://localhost:3000/api/items', item)
@@ -54,14 +68,14 @@ export default createStore({
         .catch(err => { return cb(new Error("Error de conexión")) })
     },
 
-    fetchItem(context, { id, cb }) {
+    deleteItem(context, { id, cb }) {
       context.commit('SET_LOADING', true)
-      axios.get('http://localhost:3000/api/items/'+ id)
+      axios.delete('http://localhost:3000/api/items/'+ id)
         .then(response => {
-          //console.log(response.data)
+          //console.log(response)
           if (response.data.success) {
-            context.commit('SET_ITEM', response.data.item)
-            cb(null)
+            //context.commit('SET_ITEM', response.data.item)
+            cb(null) //need item._id to redirect
           }
           context.commit('SET_LOADING', false)
         })

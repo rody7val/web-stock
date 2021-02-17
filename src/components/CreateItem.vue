@@ -1,43 +1,41 @@
 <template>
   <div v-if="$store.state.error">{{$store.state.error}}</div>
-  <div v-else>
+  <form v-else
+    @submit.prevent="add"
+    class="form-center">
+    <input
+      v-model="item.name"
+      name="name"
+      type="text"
+      placeholder="Nombre"
+      required
+    />
+    <input
+      v-model="item.price"
+      name="price"
+      type="number"
+      placeholder="Precio"
+      required
+    />
+    <input
+      v-model="item.qty"
+      name="qty"
+      type="number"
+      placeholder="Cantidad"
+      required
+    />
+    <input
+      v-model="item.desc"
+      name="desc"
+      type="text"
+      placeholder="Descripcion"
+    />
     <div v-if="$store.state.loading">Cargando...</div>
-    <form v-else
-      @submit.prevent="add"
-      class="form-center">
-      <input
-        v-model="item.name"
-        name="name"
-        type="text"
-        placeholder="Nombre"
-        required
-      />
-      <input
-        v-model="item.price"
-        name="price"
-        type="number"
-        placeholder="Precio"
-        required
-      />
-      <input
-        v-model="item.qty"
-        name="qty"
-        type="number"
-        placeholder="Cantidad"
-        required
-      />
-      <input
-        v-model="item.desc"
-        name="desc"
-        type="text"
-        placeholder="Descripcion"
-      />
-      <input
-        value="Agregar"
-        type="submit"
-      />
-    </form>
-  </div>
+    <input v-else
+      value="Agregar"
+      type="submit"
+    />
+  </form>
 </template>
 
 <script>
@@ -87,5 +85,13 @@ export default {
 }
 form{
   padding: 10px;
+}
+input{
+  display: block;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+  font-size: 1.2rem
 }
 </style>

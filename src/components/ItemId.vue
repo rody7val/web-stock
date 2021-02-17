@@ -7,6 +7,9 @@
       <h2>${{$store.state.item.price}}</h2>
       <code>{{$store.state.item.qty}} en stock</code>
       <p>{{$store.state.item.desc || "Sin descripción"}}</p>
+      <form @submit.prevent="deleteItem">
+        <input type="submit" value="Borrar"/>
+      </form>
     </div>
   </div>
 </template>
@@ -14,12 +17,14 @@
 <script>
 import { onMounted } from 'vue'
 import { useStore } from 'vuex'
-import { useRoute } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 
 export default {
   setup() {
     const store = useStore()
     const route = useRoute()
+    const router = useRouter()
+    // to API GET
     async function getItem() {
       try {
         await store.dispatch('fetchItem', {
@@ -30,11 +35,29 @@ export default {
         })
       } catch(err) { store.commit('SET_ERROR', err) }
     }
+     // to API DELETE
+    async function deleteItem() { 
+      if(confirm("seguro?")){
+        try {
+          await store.dispatch('deleteItem', {
+            id: route.params.id,
+            cb: (err) => {
+              if(err) store.commit('SET_ERROR', err)
+              router.push({ path: '/' })
+            }
+          })
+        } catch(err) { store.commit('SET_ERROR', err) }
+      }
+    }
 
     onMounted(() => {
       store.commit('SET_ERROR', "")
       getItem()
     })
+
+    return{
+      deleteItem
+    }
   }
 }
 </script>

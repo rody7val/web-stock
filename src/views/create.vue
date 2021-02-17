@@ -15,13 +15,5 @@ export default {
 }
 </script>
 
-<style type="text/css">
-input{
-	display: block;
-	padding: 8px;
-	margin-top: 8px;
-	margin-bottom: 8px;
-	width: 100%;
-  font-size: 1.2rem
-}
+<style scoped>
 </style>
