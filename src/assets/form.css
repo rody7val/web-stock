@@ -1,0 +1,17 @@
+.form-center{
+  width: 100%;
+  max-width: 350px;
+  margin: 0 auto;
+  display: inline-block;
+}
+form{
+  padding: 10px;
+}
+input{
+  display: block;
+  padding: 8px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  width: 100%;
+  font-size: 1.2rem
+}

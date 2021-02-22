@@ -1,26 +1,22 @@
 <template>
-  <div class="item">
-    <ItemId/>
+  <div class="user">
+    <UserId/>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import ItemId from '@/components/ItemId.vue'
+import UserId from '@/components/UserId.vue'
 
 export default {
   components: {
-    ItemId
+    UserId
   }
 }
 </script>
 
 <style>
-input{
-  width: auto;
-  cursor: pointer;
-}
-.item{
+.user{
   text-align: left;
   padding-left: 30px
 }

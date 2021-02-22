@@ -14,3 +14,16 @@ export default {
   }
 }
 </script>
+
+<style>
+.items{
+  text-align: left;
+}
+li{
+  margin-top: 15px;
+  margin-bottom: 15px;
+}
+.item-link{
+  text-decoration: none;
+}
+</style>
