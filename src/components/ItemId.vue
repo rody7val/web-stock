@@ -4,6 +4,7 @@
     <h2>${{$store.state.item.price}}</h2>
     <code>{{$store.state.item.qty}} en stock</code>
     <p>{{$store.state.item.desc || "Sin descripción"}}</p>
+    <img :src="$store.state.item.img">
     <form @submit.prevent="deleteItem">
       <input type="submit" value="Borrar"/>
     </form>
@@ -43,7 +44,6 @@ export default {
     }
 
     onMounted(getItem)
-
     onBeforeUnmount(() => {
       store.commit('RESET_ERRORS')
       store.commit('SET_ITEM', false)

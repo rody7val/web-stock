@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-.user{
+/*.user{
   text-align: left;
   padding-left: 30px
 }
@@ -32,5 +32,5 @@ h2, code{
 }
 code{
   font-size: 18px;
-}
+}*/
 </style>

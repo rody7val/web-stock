@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-input{
+/*input{
   width: auto;
   cursor: pointer;
 }
@@ -36,5 +36,5 @@ h2, code{
 }
 code{
   font-size: 18px;
-}
+}*/
 </style>

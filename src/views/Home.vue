@@ -16,7 +16,7 @@ export default {
 </script>
 
 <style>
-.items{
+/*.items{
   text-align: left;
 }
 li{
@@ -25,5 +25,5 @@ li{
 }
 .item-link{
   text-decoration: none;
-}
+}*/
 </style>

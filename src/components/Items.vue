@@ -1,14 +1,20 @@
 <template>
-  <ul class="items">
-    <div v-if="!$store.state.items.length">No hay productos</div>
-    <li v-for="item in $store.state.items" >
-      <router-link
-        class="item-link"
-        :to="`/item/${item._id}`">
-        <b>{{item.name}}</b> - <i>${{item.price}}</i>
-      </router-link>
-    </li>
-  </ul>
+  <div class="row">
+    <div class="col-md-6 col-6">
+      <div class="list-group list-group-flush">
+        <div v-if="!$store.state.items.length">No hay productos</div>
+        <router-link
+          v-for="item in $store.state.items"
+          class="list-group-item d-flex justify-content-between align-items-center list-group-item-action"
+          :to="`/item/${item._id}`"
+        >
+          {{item.name}}
+          <span class="badge badge-primary badge-pill">$ {{item.price}}</span>
+        </router-link>
+      </div>
+    </div>
+    <div class="col-md-6 col-6"></div>
+  </div>
 </template>
 
 <script>
