@@ -1,6 +1,6 @@
 <template>
-  <div class="row">
-    <div class="col-md-6 col-6">
+  <div class="my-4 row">
+    <div class="col-md-6 col-sm-8 col-xs-12 img-center">
       <div class="list-group list-group-flush">
         <div v-if="!$store.state.items.length">No hay productos</div>
         <router-link
@@ -13,7 +13,7 @@
         </router-link>
       </div>
     </div>
-    <div class="col-md-6 col-6"></div>
+    <div class="col-xs-12"></div>
   </div>
 </template>
 

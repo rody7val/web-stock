@@ -86,11 +86,13 @@ export default createStore({
       //DELETE /api/items/:id (need token header)
       deleteItem(context, { id, cb }) {
         context.commit('SET_LOADING', true)
+        let auth = localStorage.getItem('token') ? `Bearer ${localStorage.getItem('token')}` : ''
         let options = {
           method: 'delete',
           url: 'http://localhost:3000/api/items/'+ id,
-          headers: { 'Authorization': `Bearer ${localStorage.getItem('token')}` }
+          headers: { 'Authorization': auth }
         }
+        console.log(auth)
         axios(options)
           .then(response => {
             context.commit('SET_LOADING', false)

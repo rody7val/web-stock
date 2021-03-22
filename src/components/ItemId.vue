@@ -1,13 +1,48 @@
 <template>
-  <div v-if="$store.state.item">
-    <h1>{{$store.state.item.name}}</h1>
-    <h2>${{$store.state.item.price}}</h2>
-    <code>{{$store.state.item.qty}} en stock</code>
-    <p>{{$store.state.item.desc || "Sin descripción"}}</p>
-    <img :src="$store.state.item.img">
-    <form @submit.prevent="deleteItem">
-      <input type="submit" value="Borrar"/>
-    </form>
+  <div class="my-4 row">
+    <div class="col-12">
+      <!--card item-->
+      <div
+        v-if="$store.state.item"
+        class="card mb-3"
+        style=""
+      >
+        <div class="row no-gutters">
+          <div class="col-md-6 col-sm-6">
+            <img
+              class="img-fluid img-center"
+              :src="$store.state.item.img"
+              :alt="$store.state.item.name"
+            />
+          </div>
+          <div class="col-md-6 col-sm-6">
+            <div class="card-body">
+              <!--name-->
+              <h2 class="card-title">{{$store.state.item.name}}</h2>
+              <!--price-->
+              <h3 class="card-title">
+                <code>$ {{$store.state.item.price}}</code>
+              </h3>
+              <!--created-->
+              <p class="card-text mb-0" v-if="$store.state.auth">
+                <small class="text-muted">
+                  {{getDate($store.state.item.created)}}
+                </small>
+              </p>
+              <!--desc-->
+              <p class="card-text">{{$store.state.item.desc || ""}}</p>
+              <!--actions-->
+              <form @submit.prevent="deleteItem" v-if="$store.state.auth">
+                <input
+                  class="btn btn-sm btn-danger"
+                  type="submit"
+                  value="Borrar"/>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -22,14 +57,14 @@ export default {
     const route = useRoute()
     const router = useRouter()
     const getItem = () => {
-        store.dispatch('fetchItem', {
-          id: route.params.id,
-          cb: (err, item) => {
-            console.log(item)
-            if(err) return store.commit('SET_ERRORS', err)
-            store.commit('SET_ITEM', item)
-          }
-        })
+      store.dispatch('fetchItem', {
+        id: route.params.id,
+        cb: (err, item) => {
+          console.log(item)
+          if(err) return store.commit('SET_ERRORS', err)
+          store.commit('SET_ITEM', item)
+        }
+      })
     }
     const deleteItem = () => { 
       if (confirm("seguro?")) {
@@ -42,6 +77,9 @@ export default {
         })
       }
     }
+    const getDate = (unixDate) => {
+      return new Date(unixDate).toLocaleString("es-AR")
+    }
 
     onMounted(getItem)
     onBeforeUnmount(() => {
@@ -49,7 +87,7 @@ export default {
       store.commit('SET_ITEM', false)
     })
 
-    return { deleteItem }
+    return { deleteItem, getDate }
   }
 }
 </script>

@@ -15,7 +15,7 @@
         <router-link class="nav-link" to="/signup">Registrarse</router-link>
       </li>
       <li class="nav-item">
-        <router-link class="nav-link" to="/login">Entrar</router-link>
+        <router-link class="nav-link" to="/login">Acceder</router-link>
       </li>
     </ul>
     <!-- menu right auth -->
@@ -43,13 +43,28 @@
     </div>
   </div>
   <!-- errors -->
-  <ul v-if="$store.state.errors.length">
-    <li v-for="err in $store.state.errors">
-      {{err}}
-    </li>
-  </ul>
+  <div
+    v-if="$store.state.errors.length"
+    class="mb-0 alert alert-warning alert-dismissible fade show"
+    role="alert"
+  >
+    <ul class="mb-0">
+      <li v-for="err in $store.state.errors.reverse()">
+        {{err}}
+      </li>
+    </ul>
+    <button
+      type="button"
+      class="close"
+      data-dismiss="alert"
+      aria-label="Close"
+      @click="resetErrors"
+    >
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
   <!-- views -->
-  <div class="container">
+  <div class="container-fluid">
     <router-view/>
   </div>
 </template>
@@ -84,8 +99,13 @@ export default {
         }
       }
     }
+    const resetErrors = () => {
+      store.commit('RESET_ERRORS')
+    }
 
     onMounted(getToken)
+
+    return {resetErrors}
   }
 }
 </script>
